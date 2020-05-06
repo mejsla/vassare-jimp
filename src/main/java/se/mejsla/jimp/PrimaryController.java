@@ -1,7 +1,14 @@
 package se.mejsla.jimp;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Slider;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
@@ -12,11 +19,26 @@ import java.io.InputStream;
 import java.nio.file.Files;
 
 public class PrimaryController {
+
+    private final IntegerProperty brushSizeProperty = new SimpleIntegerProperty(50);
+
     @FXML
     private ImageView imageView ;
 
     @FXML
+    private Slider brushSizeSlider;
+
+    @FXML
+    private TextField brushSizeField ;
+
+    @FXML
     private void initialize() {
+        brushSizeSlider.valueProperty().bindBidirectional(brushSizeProperty);
+
+        brushSizeProperty.addListener((prop, oldValue, newValue) -> {
+            brushSizeField.setText("" + newValue);
+        });
+        brushSizeField.setText("" + brushSizeProperty.getValue());
     }
 
     @FXML
