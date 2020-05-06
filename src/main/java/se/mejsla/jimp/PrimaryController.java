@@ -12,6 +12,8 @@ import java.io.InputStream;
 import java.nio.file.Files;
 
 public class PrimaryController {
+    @FXML
+    private ImageView imageView ;
 
     @FXML
     private void initialize() {
@@ -20,5 +22,21 @@ public class PrimaryController {
     @FXML
     public void handleApplicationQuitAction(ActionEvent event) {
         App.getWindow().hide();
+    }
+
+    @FXML
+    public void handleFileOpenAction(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open file");
+        File file = fileChooser.showOpenDialog(App.getWindow());
+        if (file != null) {
+            try {
+                InputStream imageIS = Files.newInputStream(file.toPath());
+                final Image image = new Image(imageIS);
+                imageView.setImage(image);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
