@@ -11,4 +11,12 @@ En vässare om JavaFX.
 * Sätt `fitWidth` & `fitHeight` till 0
 * Arrange - wrap in `scrollpane`
 
+I `PrimaryController` lägg till
+
+```java
+    @FXML
+    private ScrollPane imageScroller ;
+
+```
+
 git checkout step 2
