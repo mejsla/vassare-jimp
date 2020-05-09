@@ -2,19 +2,37 @@
 
 En vässare om JavaFX.
 
-## Förberedelser
+## Paintbrush tools
 
-Installerad Java 11 (eller senare) JDK. Ett bra sätt om man har Bash är att använda https://sdkman.io/
+* Lägg till en VBox till höger
+* Lägg till en `Label` och sätt texten till "Brush size" inuti VBoxen
+* Lägg till ett `TextField`, klicka ur `Editable` i properties
+* Lägg till en horisontell `Slider`
 
-Installera Scene Builder från https://gluonhq.com/products/scene-builder/
+I `PrimaryController` lägg till:
 
-Valfri IDE för att skriva Java-kod.
+```
+    private final IntegerProperty brushSizeProperty = new SimpleIntegerProperty(50);
 
-## Agenda
+    @FXML
+    private Slider brushSizeSlider;
 
-* JavaFX historia (10 min)
-* JavaFX begrepp och terminologi (Controls, Containers, Layoutmanager, properties, controllers, FXML) 15 min
-* Code-A-Long: Sätt upp projektet i IntelliJ & Scene Builder (5 min)
-* Paus 10 minuter
-* Code-A-Long: Paintbrush 20 min
-* Code-A-Long: Image layering 20 min
+    @FXML
+    private TextField brushSizeField ;
+```
+
+* Knyt `fx:id` till controllerna
+
+Knyt de olika egenskaperna till varandra:
+
+``` 
+    @FXML
+    private void initialize() {
+        brushSizeSlider.valueProperty().bindBidirectional(brushSizeProperty);
+
+        brushSizeProperty.addListener((prop, oldValue, newValue) -> {
+            brushSizeField.setText("" + newValue);
+        });
+        brushSizeField.setText("" + brushSizeProperty.getValue());
+    }
+```
