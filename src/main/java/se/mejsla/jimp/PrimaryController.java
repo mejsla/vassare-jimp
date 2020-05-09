@@ -6,6 +6,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
@@ -24,6 +25,9 @@ public class PrimaryController {
 
     @FXML
     private ImageView imageView ;
+
+    @FXML
+    private ScrollPane imageScroller;
 
     @FXML
     private Slider brushSizeSlider;

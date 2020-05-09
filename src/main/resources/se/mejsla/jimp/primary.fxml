@@ -25,7 +25,7 @@
       </MenuBar>
    </top>
    <center>
-      <ScrollPane BorderPane.alignment="CENTER">
+      <ScrollPane fx:id="imageScroller" BorderPane.alignment="CENTER">
          <content>
             <ImageView fx:id="imageView" pickOnBounds="true" preserveRatio="true" />
          </content>
