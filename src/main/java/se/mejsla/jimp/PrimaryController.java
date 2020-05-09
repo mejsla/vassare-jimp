@@ -14,7 +14,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
@@ -79,87 +78,20 @@ public class PrimaryController {
         final WritableImage paintedLayer = new WritableImage(width, height);
         final Canvas topToolIndicatorLayer = new Canvas(width, height);
 
-        final StackPane imageLayers = new StackPane(bottomImageLayer, new ImageView(paintedLayer), topToolIndicatorLayer);
+        final StackPane imageLayers = new StackPane(
+                bottomImageLayer,
+                new ImageView(paintedLayer),
+                topToolIndicatorLayer);
 
-        registerMouseListeners(height, width, paintedLayer.getPixelWriter(), topToolIndicatorLayer, topToolIndicatorLayer.getGraphicsContext2D(), imageLayers);
+        ImageUtilities.registerMouseListeners(
+                height,
+                width,
+                brushSizeProperty,
+                paintedLayer.getPixelWriter(),
+                topToolIndicatorLayer,
+                topToolIndicatorLayer.getGraphicsContext2D(),
+                imageLayers);
 
         imageScroller.setContent(imageLayers);
     }
-
-    private void registerMouseListeners(int height, int width, PixelWriter pixelWriter, Canvas topToolIndicatorLayer, GraphicsContext toolGC, StackPane imageLayers) {
-        imageLayers.setOnMouseEntered(mouseEvent -> {
-            imageLayers.setCursor(Cursor.NONE);
-        });
-        imageLayers.setOnMouseExited(mouseEvent -> {
-            imageLayers.setCursor(Cursor.DEFAULT);
-        });
-
-        topToolIndicatorLayer.setOnMouseMoved(event -> {
-            clearCanvas(width, height, toolGC);
-            toolGC.setStroke(Color.rgb(255, 255, 255, 1.0d));
-            paintTool(toolGC, event);
-        });
-
-        topToolIndicatorLayer.setOnMouseDragged(event -> {
-            clearCanvas(width, height, toolGC);
-            toolGC.setStroke(Color.RED);
-            paintTool(toolGC, event);
-            final double x = event.getX();
-            final double y = event.getY();
-            applyPaint((int) x, (int) y, event.isShiftDown() || event.isControlDown(), pixelWriter);
-        });
-
-        topToolIndicatorLayer.setOnMousePressed((event -> {
-            clearCanvas(width, height, toolGC);
-            toolGC.setStroke(Color.YELLOW);
-            paintTool(toolGC, event);
-            final double x = event.getX();
-            final double y = event.getY();
-            applyPaint((int) x, (int) y, event.isShiftDown() || event.isControlDown(), pixelWriter);
-        }));
-    }
-
-    private void paintTool(GraphicsContext toolGC, MouseEvent event) {
-        final double x = event.getX();
-        final double y = event.getY();
-
-        final int diameter = brushSizeProperty.intValue();
-        final int radius = diameter / 2;
-        toolGC.setLineDashes(2);
-        toolGC.strokeOval(x - radius, y - radius, diameter, diameter);
-    }
-
-    public void applyPaint(final double x, final double y, boolean erase, PixelWriter pixelWriter) {
-        final int diameter = this.brushSizeProperty.intValue();
-        final int radius = diameter / 2;
-
-        final int xoffset = (int) (x - radius);
-        final int yoffset = (int) (y - radius);
-        final int radiusSquared = radius * radius;
-        for (int xc = 0; xc < diameter; xc++) {
-            for (int yc = 0; yc < diameter; yc++) {
-                int xcc = xc - radius;
-                int ycc = yc - radius;
-                final int distanceSquard = xcc * xcc + ycc * ycc;
-                if (distanceSquard < radiusSquared) {
-                    final int ximage = xc + xoffset;
-                    final int yimage = yc + yoffset;
-                    if ((ximage > -1) && (yimage > -1)) {
-                        final Color fillColor;
-                        if (erase) {
-                            fillColor = Color.color(0, 0, 0, 0);
-                        } else {
-                            fillColor = Color.PAPAYAWHIP;
-                        }
-                        pixelWriter.setColor(ximage, yimage, fillColor);
-                    }
-                }
-            }
-        }
-    }
-
-    private static void clearCanvas(int width, int height, GraphicsContext toolGC) {
-        toolGC.clearRect(0, 0, width, height);
-    }
-
 }

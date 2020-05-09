@@ -41,13 +41,16 @@ Nu skall vi skapa 3 lager att rita på.
         final WritableImage paintedLayer = new WritableImage(width, height);
         final Canvas topToolIndicatorLayer = new Canvas(width, height);
 
-        final StackPane imageLayers = new StackPane(bottomImageLayer, new ImageView(paintedLayer), topToolIndicatorLayer);
+        final StackPane imageLayers = new StackPane(
+                bottomImageLayer,
+                new ImageView(paintedLayer),
+                topToolIndicatorLayer);
 
         imageScroller.setContent(imageLayers);
     }
 ```
 
-* Man ritar på en canvas genom att anropa metoder på en `GraphicsContext`. Skapa metoden nedan för att rita ut penseln
+* Man ritar på en canvas genom att anropa metoder på en `GraphicsContext`. Exemplevis följande i `ImageUtilities`
 
 ```java
     private void paintTool(GraphicsContext toolGC, MouseEvent event) {
@@ -61,7 +64,7 @@ Nu skall vi skapa 3 lager att rita på.
     }
 ```
 
-* Man ritar på en WriteableImage genom att anropa metoder på en `PixelWriter`. Skapa metoden nedan:
+* Man ritar på en WriteableImage genom att anropa metoder på en `PixelWriter`. Exemplevis följande i `ImageUtilities`
 
 ```java
 
@@ -97,10 +100,10 @@ Nu skall vi skapa 3 lager att rita på.
 
 
 
-* Vi behöver också veta _var_ vi vill rita penseln så vi registrerar en lyssanre på vår canvas för att hålla koll på var musen är.
+* Vi behöver också veta _var_ vi vill rita penseln så vi registrerar en lyssnare på vår canvas för att hålla koll på 
+var musen är, t.ex. denna i `ImageUtils`
 
 ```java
-
     private void registerMouseListeners(int height, int width, PixelWriter pixelWriter, Canvas topToolIndicatorLayer, GraphicsContext toolGC, StackPane imageLayers) {
         imageLayers.setOnMouseEntered(mouseEvent -> {
             imageLayers.setCursor(Cursor.NONE);
@@ -138,7 +141,7 @@ Nu skall vi skapa 3 lager att rita på.
 och sist så ändrar vi vår `onImageLoaded` att se ut såhär:
 
 ```java
-    private void onImageLoaded(Image image) {
+private void onImageLoaded(Image image) {
         final int height = (int) image.getHeight();
         final int width = (int) image.getWidth();
 
@@ -149,9 +152,19 @@ och sist så ändrar vi vår `onImageLoaded` att se ut såhär:
         final WritableImage paintedLayer = new WritableImage(width, height);
         final Canvas topToolIndicatorLayer = new Canvas(width, height);
 
-        final StackPane imageLayers = new StackPane(bottomImageLayer, new ImageView(paintedLayer), topToolIndicatorLayer);
+        final StackPane imageLayers = new StackPane(
+                bottomImageLayer,
+                new ImageView(paintedLayer),
+                topToolIndicatorLayer);
 
-        registerMouseListeners(height, width, paintedLayer.getPixelWriter(), topToolIndicatorLayer, topToolIndicatorLayer.getGraphicsContext2D(), imageLayers);
+        ImageUtilities.registerMouseListeners(
+                height,
+                width,
+                brushSizeProperty,
+                paintedLayer.getPixelWriter(),
+                topToolIndicatorLayer,
+                topToolIndicatorLayer.getGraphicsContext2D(),
+                imageLayers);
 
         imageScroller.setContent(imageLayers);
     }
