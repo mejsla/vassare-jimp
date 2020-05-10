@@ -91,3 +91,22 @@ Den mojäng som håller koll på nod-trädet (SceneGraph).
 ## Stage
 
 Håller koll på scenen och skapar fönstret (Window) som applikationen bor i.
+
+## Properties
+
+En definiution av Plain Old Java Beans Properties som man inte så ofta ser i Enterprise sammanhang:
+
+>A bound property notifies listeners when its value changes. This has two implications:
+>
+>    The bean class includes addPropertyChangeListener() and removePropertyChangeListener() methods for managing the bean's listeners.
+>    When a bound property is changed, the bean sends a PropertyChangeEvent to its registered listeners.
+
+https://docs.oracle.com/javase/tutorial/javabeans/writing/properties.html
+
+Från JavaFX 2.1
+
+> This release introduces property support into JavaFX, support that is based on the proven JavaBeans model, but expanded and improved.
+>
+> JavaFX properties are often used in conjunction with binding, a powerful mechanism for expressing direct relationships between variables. When objects participate in bindings, changes made to one object will automatically be reflected in another object
+
+Vilken är en hyfsat bekväm modell för att propagera värden från UI till sin modell.
