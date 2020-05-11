@@ -17,6 +17,7 @@ Valfri IDE för att skriva Java-kod.
 * Code-A-Long: Sätt upp projektet i IntelliJ & Scene Builder
 * Paus
 * Code-A-Long: Paintbrush
+  * git checkout step1
 * Code-A-Long: Image layering
 
 # Historia
