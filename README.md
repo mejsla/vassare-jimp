@@ -36,3 +36,5 @@ Knyt de olika egenskaperna till varandra:
         brushSizeField.setText("" + brushSizeProperty.getValue());
     }
 ```
+
+git checkout step3
