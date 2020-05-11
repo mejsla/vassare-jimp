@@ -5,9 +5,10 @@ En vässare om JavaFX.
 ## Image layers
 
 Nu skall vi skapa 3 lager att rita på. 
-* Understa lagret är bilden vi laddade in. Det är en `Image`
-* Nästa lager är det vi ritar färg på. Det gör vi till en `WriteableImage` 
-* Sen behöver vi ett topplager där vi kan rita ut penselpekaren, där är det enklast att använda en `Canvas`
+1) Understa lagret är bilden vi laddade in. Det är en `Image`
+2) Nästa lager är det vi ritar färg på. Det gör vi till en `WriteableImage` 
+3) Sen behöver vi ett topplager där vi kan rita ut penselpekaren, där är det enklast att använda en `Canvas`
+
 
 * Ta bort `ImageView` från FXML-filen och ta bort medlemsvariabeln från controllern
 * Skapa en ny metod att anropa när vi har laddat en ny bild `onImageLoaded`

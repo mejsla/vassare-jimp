@@ -26,6 +26,9 @@ import java.nio.file.Files;
 public class PrimaryController {
 
     private final IntegerProperty brushSizeProperty = new SimpleIntegerProperty(50);
+    
+    @FXML
+    private ImageView imageView ;
 
     @FXML
     private ScrollPane imageScroller;
@@ -60,38 +63,11 @@ public class PrimaryController {
             try {
                 InputStream imageIS = Files.newInputStream(file.toPath());
                 final Image image = new Image(imageIS);
-                onImageLoaded(image);
+                imageView.setImage(image);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    private void onImageLoaded(Image image) {
-        final int height = (int) image.getHeight();
-        final int width = (int) image.getWidth();
-
-        final ImageView bottomImageLayer = new ImageView(image);
-        bottomImageLayer.setFitHeight(0);
-        bottomImageLayer.setFitWidth(0);
-
-        final WritableImage paintedLayer = new WritableImage(width, height);
-        final Canvas topToolIndicatorLayer = new Canvas(width, height);
-
-        final StackPane imageLayers = new StackPane(
-                bottomImageLayer,
-                new ImageView(paintedLayer),
-                topToolIndicatorLayer);
-
-        ImageUtilities.registerMouseListeners(
-                height,
-                width,
-                brushSizeProperty,
-                paintedLayer.getPixelWriter(),
-                topToolIndicatorLayer,
-                topToolIndicatorLayer.getGraphicsContext2D(),
-                imageLayers);
-
-        imageScroller.setContent(imageLayers);
-    }
 }
