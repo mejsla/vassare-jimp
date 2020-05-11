@@ -21,28 +21,11 @@ import java.nio.file.Files;
 
 public class PrimaryController {
 
-    private final IntegerProperty brushSizeProperty = new SimpleIntegerProperty(50);
-
     @FXML
     private ImageView imageView ;
 
     @FXML
-    private ScrollPane imageScroller;
-
-    @FXML
-    private Slider brushSizeSlider;
-
-    @FXML
-    private TextField brushSizeField ;
-
-    @FXML
     private void initialize() {
-        brushSizeSlider.valueProperty().bindBidirectional(brushSizeProperty);
-
-        brushSizeProperty.addListener((prop, oldValue, newValue) -> {
-            brushSizeField.setText("" + newValue);
-        });
-        brushSizeField.setText("" + brushSizeProperty.getValue());
     }
 
     @FXML
