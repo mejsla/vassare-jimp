@@ -110,4 +110,6 @@ Från JavaFX 2.1
 >
 > JavaFX properties are often used in conjunction with binding, a powerful mechanism for expressing direct relationships between variables. When objects participate in bindings, changes made to one object will automatically be reflected in another object
 
+https://docs.oracle.com/javafx/2/binding/jfxpub-binding.htm
+
 Vilken är en hyfsat bekväm modell för att propagera värden från UI till sin modell.
