@@ -40,6 +40,8 @@ Released June 2009
 * Skinnable CSS controls
 * Built-in chart widgets
 
+The acquisition of Sun Microsystems by Oracle Corporation was completed on January 27, 2010
+
 ## v2.0
 Released October 2011
 
