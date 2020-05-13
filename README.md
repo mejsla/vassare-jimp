@@ -30,7 +30,7 @@ Released December 2008
 ## v1.1
 Released February 2009
 
-JavaFX for mobile developmen.
+JavaFX for mobile development.
 
 ## v1.2 
 Released June 2009
