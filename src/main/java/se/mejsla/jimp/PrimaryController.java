@@ -13,6 +13,8 @@ import java.nio.file.Files;
 
 public class PrimaryController {
 
+    private ImageView imageView;
+
     @FXML
     private void initialize() {
     }
@@ -31,7 +33,7 @@ public class PrimaryController {
             try {
                 InputStream imageIS = Files.newInputStream(file.toPath());
                 final Image image = new Image(imageIS);
-                // imageView.setImage(image);
+                imageView.setImage(image);
             } catch (IOException e) {
                 e.printStackTrace();
             }
